@@ -3,6 +3,9 @@ package org.example;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Use hashmap and doubly linked list for implementation
+ */
 public class LRUCache {
 
     private int size;
@@ -42,7 +45,6 @@ public class LRUCache {
                 removeHeadAndAppendToTail(item);
             }
         }
-
     }
 
     /**
