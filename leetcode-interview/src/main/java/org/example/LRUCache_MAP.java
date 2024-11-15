@@ -11,26 +11,25 @@ public class LRUCache_MAP {
     private LinkedHashMap<Integer, Integer> map;
 
     public LRUCache_MAP(int capacity) {
-
         this.size = capacity;
         map = new LinkedHashMap<>(10, 0.75f, true);
 
     }
 
     public Integer put(Integer key, Integer value) {
-
-        if (map.size() == size && !map.containsKey(key)) {
-            Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
-            Iterator<Map.Entry<Integer, Integer>> iterator = entries.iterator();
-            int k = 0;
-            if (iterator.hasNext()) {
-                k = iterator.next().getKey();
-            }
-            map.remove(k);
+        if (map.containsKey(key)) {
             map.put(key, value);
         } else {
+            if (map.size() >= size) {
+                Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+                Iterator<Map.Entry<Integer, Integer>> iterator = entries.iterator();
+                int eldestKey = 0;
+                if (iterator.hasNext()) {
+                    eldestKey = iterator.next().getKey();
+                }
+                map.remove(eldestKey);
+            }
             map.put(key, value);
-
         }
         return value;
     }
