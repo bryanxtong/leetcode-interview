@@ -32,39 +32,34 @@ public class LRUCache {
         } else {
             if (cache.size() >= size) {
                 Node eldestNode = head.next;
-                removeHead(eldestNode);
-                if (eldestNode != null) {
-                    cache.remove(eldestNode.getKey());
-                }
+                removeNode(eldestNode);
+                cache.remove(eldestNode.getKey());
             }
             Node item = new Node(key, value);
             cache.put(key, item);
-            addToTail(item);
+            addNodeToTail(item);
         }
 
     }
 
     /**
-     * once we have more nodes which is beyond the capacity, remove the first node
+     * remove a node
      *
-     * @param itemToAdd
+     * @param node Node to remove
      */
-    public void removeHead(Node itemToAdd) {
-        //remove head data element;
-        Node first = head.next;
-        Node next = head.next.next;
-        if (next != null) {
-            head.next = next;
-            next.prev = head;
-        }
+    public void removeNode(Node node) {
+        Node prev = node.prev;
+        Node next = node.next;
+        prev.next = next;
+        next.prev = prev;
     }
 
     /**
-     * add item to tail but before tail dummy node
+     * add a node to tail but before tail dummy node
      *
      * @param item
      */
-    public void addToTail(Node item) {
+    public void addNodeToTail(Node item) {
         Node temp = tail.prev;
         temp.next = item;
         item.prev = temp;
@@ -72,19 +67,14 @@ public class LRUCache {
         tail.prev = item;
     }
 
-    //remove existing item in doubly linkedlist and append to last but before tail dummy node
+    /**
+     * remove existing item and append to last but before tail dummy node
+     *
+     * @param item
+     */
     public void removeAndAddLast(Node item) {
-        Node prev = item.prev;
-        Node next = item.next;
-        prev.next = next;
-        next.prev = prev;
-        Node temp = tail.prev;
-        if (temp != null) {
-            temp.next = item;
-            item.prev = temp;
-            item.next = tail;
-            tail.prev = item;
-        }
+        removeNode(item);
+        addNodeToTail(item);
     }
 
     public Integer get(Integer key) {
