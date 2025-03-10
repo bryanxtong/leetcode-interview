@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-//leetcode 5
+
+/**
+ * leetcode 5
+ * can refer to official for a better way
+ */
 public class LongestPalindromicSubstring {
 
     public String longestPalindrome(String s) {
